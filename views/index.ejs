@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Express Brains</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- this is a link to the css file -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- remember to include custom fonts - if you are using them -->
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+
+  </head>
+  <body class="container">
+    <%- include('_header') %>
+    <div class="row justify-content-md-center m-4">
+      <div class="col-md-8 text-center">
+        <h1 class="text-uppercase text-primary">Express Brains</h1>
+        <p>Découvrez en un minimum de tour le nombre qui se cache derrière la carte mistère !</p>
+        <div class="mystery card d-flex mx-auto my-5" style="width: 18rem;">
+          <div>
+            <% if (typeof response !== 'undefined' && typeof response.numberToFind !== 'undefined') { %>
+              <span class="numberToFind"><%= response.numberToFind %></span>
+            <% } else { %>
+              <i class="bi bi-question-diamond-fill fa-10x"></i>
+            <% } %>
+          </div>
+          <div class="card-body">
+              <% if (typeof start !== 'undefined' && start) { %>
+                  <h5 class="card-title">Express Game</h5>
+                  <form action="/" method="post">
+                      <input type="hidden" name="play" value="1">
+                      <button type="submit" class="btn btn-secondary">Jouer</button>
+                  </form>
+            <% } else if (typeof response === 'undefined' || (typeof response !== 'undefined' && response.resultType !== response.ResultTypes.CORRECT)) { %>
+              <h5 class="card-title">Qui suis-je ?</h5>
+              <form action="/" method="post">
+                <label for="response" class="form-label">Quel nombre se cache derrière cette carte mistère ?</label>
+                <input type="number" class="form-control my-2" id="response" placeholder="?" name="attempt">
+                <button type="submit" class="btn btn-secondary">J'ai trouvé !</button>
+              </form>
+            <% } else { %>
+              <h5 class="card-title">Bravo !</h5>
+              <form action="/" method="post">
+                <input type="hidden" name="play" value="1">
+                <button type="submit" class="btn btn-secondary">Rejouer</button>
+              </form>
+            <% } %>
+          </div>
+        </div>
+
+        <% if (typeof response != 'undefined') { %>
+
+          <div class="alert alert-<%= (response.resultType !== response.ResultTypes.CORRECT)?'danger':'success' %>" role="alert">
+            <%= response.text %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <%- include('_footer') %>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>

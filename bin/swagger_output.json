@@ -1,0 +1,314 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Express Brains",
+    "description": "Public API for Express Brains Game",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/api/authentication_token": {
+      "post": {
+        "tags": [
+          "Security"
+        ],
+        "summary": "Get authentication token",
+        "description": "Endpoint to authenticate a user and return a JWT token",
+        "parameters": [
+          {
+            "name": "credentials",
+            "description": "Credentials",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users",
+        "description": "Endpoint to get all users. Only admin can access this endpoint.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a new user",
+        "description": "Endpoint to create a new user.",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/teams": {
+      "get": {
+        "tags": [
+          "Teams"
+        ],
+        "summary": "Get all teams",
+        "description": "Endpoint to get all teams.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Teams found."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Teams"
+        ],
+        "summary": "Create a team",
+        "description": "Endpoint to create a team. The team must have at least 2 members. The team name must contain at least 4 characters. Only the admin can create a team.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "team",
+            "in": "body",
+            "description": "Team to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Team"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/rank": {
+      "get": {
+        "tags": [
+          "Rank"
+        ],
+        "summary": "Get rank of gamers.",
+        "description": "Endpoint to get the rank of gamers.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Rank of gamers."
+          }
+        }
+      }
+    },
+    "/api/game": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "summary": "Play the game",
+        "description": "Endpoint to play the game. It receives a number and returns the result of the game. For the API, you need to be authenticated to play the game.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "attempt",
+            "in": "body",
+            "description": "Object with the number to try.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attempt": {
+                  "type": "number",
+                  "example": 25
+                }
+              },
+              "required": [
+                "attempt"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Credentials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "admin@express-brains.local"
+        },
+        "password": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "example@express-brains.local"
+        },
+        "nickname": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "password": {
+          "type": "string",
+          "example": "password"
+        },
+        "passwordConfirmation": {
+          "type": "string",
+          "example": "password"
+        }
+      }
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Team 1"
+        },
+        "members": {
+          "type": "array",
+          "example": [
+            "/api/users/a1b651df-c53e-48c9-97f1-ed92c0fabb25",
+            "/api/users/4b7fa20b-f6bd-48f2-84ad-5aab90910beb",
+            "/api/users/z1b651df-c53d-48c9-97f1-ed92c0fabb28"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "examples": {
+      "Credentials": {
+        "value": {
+          "email": "admin@express-brains.local",
+          "password": "admin"
+        }
+      },
+      "User": {
+        "value": {
+          "email": "example@express-brains.local",
+          "nickname": "John Doe",
+          "password": "password",
+          "passwordConfirmation": "password"
+        }
+      },
+      "Team": {
+        "value": {
+          "name": "Team 1",
+          "members": [
+            "/api/users/a1b651df-c53e-48c9-97f1-ed92c0fabb25",
+            "/api/users/4b7fa20b-f6bd-48f2-84ad-5aab90910beb",
+            "/api/users/z1b651df-c53d-48c9-97f1-ed92c0fabb28"
+          ]
+        }
+      }
+    }
+  },
+  "security": {
+    "bearerAuth": []
+  }
+}

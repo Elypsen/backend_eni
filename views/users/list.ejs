@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Les utilisateurs - Express Brains</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- this is a link to the css file -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- remember to include custom fonts - if you are using them -->
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+
+</head>
+<body class="container">
+<%- include('../_header') %>
+<div class="row justify-content-md-center m-4">
+    <div class="col-md-8 text-center">
+        <h1 class="text-uppercase text-primary my-4">Liste des utilisateurs</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% users.forEach((user) => { %>
+                <tr>
+                    <th scope="row"><%= user.uuid %></th>
+                    <td><%= user.email %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<%- include('../_footer') %>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Le classement - Express Brains</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- this is a link to the css file -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- remember to include custom fonts - if you are using them -->
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+
+</head>
+<body class="container">
+<%- include('../_header') %>
+<div class="row justify-content-md-center m-4">
+    <div class="col-md-8 text-center">
+        <h1 class="text-uppercase text-primary my-4">Le classement</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Utilisateur</th>
+                <th scope="col">Tentatives</th>
+                <th scope="col">Temps</th>
+                <th scope="col" colspan="2">Nombre à trouver</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% games.forEach((game) => { %>
+                <tr>
+                    <th scope="row"><%= game.uuid %></th>
+                    <td><%= (!game.user) ? 'Anonyme' : game.user.nickname %></td>
+                    <td><%= game.attempts %></td>
+                    <td><%= Math.round(game.time) %> sec.</td>
+                    <td><%= (game.inProgress) ? '?' : game.numberToFind %></td>
+                    <td><% if (game.inProgress) { %>
+                            <i class="bi bi-clock-fill"></i>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%- include('../_footer') %>
+</body>
+</html>

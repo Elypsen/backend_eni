@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Créer un compte - Express Brains</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- this is a link to the css file -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- remember to include custom fonts - if you are using them -->
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+
+</head>
+<body class="container">
+<%- include('../_header') %>
+<div class="row justify-content-md-center m-4">
+    <div class="col-md-8 text-center">
+        <h1 class="text-uppercase text-primary my-4">Créer un compte</h1>
+        <form action="" method="post" class="create-account">
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-6 col-form-label">Email</label>
+                <div class="col-sm-6">
+                    <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="<%= typeof email !== 'undefined' ? email : '' %>"
+                            class="form-control <%= typeof errors !== 'undefined' && typeof errors['email'] !== 'undefined' ? 'is-invalid': '' %>"
+                    >
+                    <div class="invalid-feedback">
+                        <% if (typeof errors !== 'undefined' && typeof errors['email'] !== 'undefined') { %> <%=
+                            errors['email'] %> <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="nickname" class="col-sm-6 col-form-label">Pseudo</label>
+                <div class="col-sm-6">
+                    <input
+                            type="text"
+                            id="nickname"
+                            name="nickname"
+                            value="<%= typeof nickname !== 'undefined' ? nickname : '' %>"
+                            class="form-control <%= typeof errors !== 'undefined' && typeof errors['nickname'] !== 'undefined' ? 'is-invalid': '' %>"
+                    >
+                    <div class="invalid-feedback">
+                        <% if (typeof errors !== 'undefined' && typeof errors['nickname'] !== 'undefined') { %> <%=
+                            errors['nickname'] %> <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="password" class="col-sm-6 col-form-label">Mot de passe</label>
+                <div class="col-sm-6">
+                    <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control <%= typeof errors !== 'undefined' && (typeof errors['password'] !== 'undefined' || typeof errors['passwordConfirmation'] !== 'undefined') ? 'is-invalid': '' %>"
+                    >
+
+                    <div class="invalid-feedback">
+                        <% if (typeof errors !== 'undefined' && typeof errors['password'] !== 'undefined') { %> <%=
+                            errors['password'] %> <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="passwordConfirmation" class="col-sm-6 col-form-label">Confirmer le mot de passe</label>
+                <div class="col-sm-6">
+                    <input
+                            type="password"
+                            id="passwordConfirmation"
+                            name="passwordConfirmation"
+                            class="form-control <%= typeof errors !== 'undefined' && typeof errors['passwordConfirmation'] !== 'undefined' ? 'is-invalid': '' %>"
+                    >
+
+
+                    <div class="invalid-feedback">
+                        <% if (typeof errors !== 'undefined' && typeof errors['passwordConfirmation'] !== 'undefined') { %> <%=
+                            errors['passwordConfirmation'] %> <% } %>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Créer un compte</button>
+        </form>
+    </div>
+</div>
+
+<%- include('../_footer') %>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

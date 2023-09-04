@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Créer une équipe - Express Brains</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- this is a link to the css file -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- remember to include custom fonts - if you are using them -->
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+
+</head>
+<body class="container">
+<%- include('../_header') %>
+
+<div class="row justify-content-md-center m-4">
+    <div class="col-md-8 text-center">
+        <h1 class="text-uppercase text-primary my-4">Créer une équipe</h1>
+        <form action="" method="post" class="create-account">
+            <div class="mb-3 row">
+                <label for="name" class="col-sm-6 col-form-label">Nom</label>
+                <div class="col-sm-6">
+                    <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value="<%= typeof name !== 'undefined' ? name : '' %>"
+                            class="form-control <%= typeof errors !== 'undefined' && typeof errors['name'] !== 'undefined' ? 'is-invalid': '' %>"
+                    >
+                    <div class="invalid-feedback">
+                        <% if (typeof errors !== 'undefined' && typeof errors['name'] !== 'undefined') { %> <%=
+                            errors['name'] %> <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="name" class="col-sm-6 col-form-label">Membres</label>
+                <div class="col-sm-6">
+                    <select
+                            multiple
+                            aria-label="multiple select"
+                            name="members"
+                            class="form-select form-control <%= typeof errors !== 'undefined' && typeof errors['members'] !== 'undefined' ? 'is-invalid': '' %>">
+                        <% users.forEach((user) => { %>
+                            <option value="<%= user._id %>"><%= user.email %></option>
+                        <% }) %>
+                    </select>
+                    <div class="invalid-feedback">
+                        <% if (typeof errors !== 'undefined' && typeof errors['members'] !== 'undefined') { %> <%=
+                            errors['members'] %> <% } %>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Créer l'équipe</button>
+        </form>
+    </div>
+</div>
+
+<%- include('../_footer') %>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
