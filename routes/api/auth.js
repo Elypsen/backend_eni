@@ -13,13 +13,13 @@ router.post('/api/authentication_token', async function (req, res, next) {
   // #swagger.parameters['credentials'] = {description: 'Credentials', in: 'body', required: true, type: 'object', schema: { $ref: "#/definitions/Credentials" }}
   let userRepository = await mongoose().repositories('user')
   const user = await userRepository.findByEmail(req.body.email)
-
   if (user) {
     if (await argon2.verify(user.password, req.body.password)) {
       const token = jwt.sign(
         {
           id: user.id,
-          username: user.username,
+          email: user.email,
+          nickname: user.nickname,
         },
         SECRET,
         { expiresIn: '3 hours' },
