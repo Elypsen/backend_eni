@@ -1,6 +1,7 @@
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const sassMiddleware = require('node-sass-middleware')
@@ -23,6 +24,7 @@ const session = require('express-session')
 const { mongoose } = require('./mongoose')
 const app = express()
 
+app.use(cors())
 app.use(
   sassMiddleware({
     src: path.join(__dirname, 'bootstrap'),
