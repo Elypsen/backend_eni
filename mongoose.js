@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { MONGO_URI } = require('./env')
 const { userRepository } = require('./repositories/user_repository')
 const { gameRepository } = require('./repositories/game_repository')
 const { teamRepository } = require('./repositories/team_repository')
@@ -23,7 +24,7 @@ module.exports.mongoose = () => {
     }
     connected = true
     mongoose
-      .connect('mongodb://127.0.0.1:27017/express_brains')
+      .connect(MONGO_URI)
       .then(() => {
         repositories.push({
           name: 'user',

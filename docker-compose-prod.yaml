@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    image: ${CONTAINER_REGISTRY}/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  db:
+    image: mongo
+    volumes:
+      - mongo_db:/data/db
+
+volumes:
+    mongo_db:
+      external: true
