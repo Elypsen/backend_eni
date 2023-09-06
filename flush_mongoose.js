@@ -19,6 +19,7 @@ async function database() {
   console.log('Database seeding...')
   await userRepository.create({
     email: 'admin@express-brains.local',
+    nickname: 'admin',
     password:
       '$argon2id$v=19$m=65536,t=3,p=4$QrMXiyCxsLjv700OAZzDkQ$abhVv5mq+rZ4gS9koYTSS7MXdWWOBU+eAJY/oZ56wsw',
     role: 'admin',

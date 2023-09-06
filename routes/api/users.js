@@ -11,7 +11,7 @@ router.get('/api/users', checkTokenMiddleware, async (req, res) => {
   // #swagger.tags = ['Users']
   // #swagger.description = 'Endpoint to get all users. Only admin can access this endpoint.'
   // #swagger.summary = 'Get all users'
-  // #swagger.responses[200] = { schema: { type: array, items: { $ref: "#/definitions/UserRead" } } }
+  // #swagger.responses[200] = { schema: { type: 'array', items: { $ref: "#/definitions/UserRead" } } }
   /* #swagger.security = [{
     "bearerAuth": []
   }]*/
@@ -26,11 +26,15 @@ router.get('/api/users/:uuid', async (req, res) => {
   // #swagger.summary = 'Get a user by uuid'
   // #swagger.parameters['uuid'] = { description: 'User uuid', required: true }
   // #swagger.responses[200] = { schema: { $ref: "#/definitions/UserRead" } }
+  // #swagger.responses[404] = { schema: { message: "User not found" } }
   /* #swagger.security = [{
     "bearerAuth": []
   }]*/
   let userRepository = await mongoose().repositories('user')
   let user = await userRepository.findByUuid(req.params.uuid)
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
   res.json({
     uuid: user.uuid,
     email: user.email,
