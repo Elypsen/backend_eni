@@ -85,11 +85,16 @@ const doc = {
       email: 'admin@express-brains.local',
       password: 'admin',
     },
-    User: {
+    UserWrite: {
       email: 'example@express-brains.local',
       nickname: 'John Doe',
       password: 'password',
       passwordConfirmation: 'password',
+    },
+    UserRead: {
+      uuid: 'a1b651df-c53e-48c9-97f1-ed92c0fabb25',
+      email: 'example@express-brains.local',
+      nickname: 'John Doe',
     },
     Team: {
       name: 'Team 1',
@@ -118,12 +123,19 @@ const doc = {
           password: 'admin',
         },
       },
-      User: {
+      UserWrite: {
         value: {
           email: 'example@express-brains.local',
           nickname: 'John Doe',
           password: 'password',
           passwordConfirmation: 'password',
+        },
+      },
+      UserRead: {
+        value: {
+          uuid: 'a1b651df-c53e-48c9-97f1-ed92c0fabb25',
+          email: 'example@express-brains.local',
+          nickname: 'John Doe',
         },
       },
       Team: {

@@ -3,7 +3,7 @@
   "info": {
     "title": "API Express Brains",
     "description": "Public API for Express Brains Game",
-    "version": "0.1.8"
+    "version": "0.1.9"
   },
   "host": "localhost:3000",
   "basePath": "/",
@@ -62,7 +62,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
@@ -87,7 +87,7 @@
             "description": "User object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/UserWrite"
             }
           }
         ],
@@ -102,6 +102,37 @@
             "description": "Unprocessable Entity"
           }
         }
+      }
+    },
+    "/api/users/{uuid}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get a user by uuid",
+        "description": "Endpoint to get a user by uuid.",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserRead"
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/teams": {
@@ -238,7 +269,7 @@
         }
       }
     },
-    "User": {
+    "UserWrite": {
       "type": "object",
       "properties": {
         "email": {
@@ -256,6 +287,23 @@
         "passwordConfirmation": {
           "type": "string",
           "example": "password"
+        }
+      }
+    },
+    "UserRead": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "example": "a1b651df-c53e-48c9-97f1-ed92c0fabb25"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@express-brains.local"
+        },
+        "nickname": {
+          "type": "string",
+          "example": "John Doe"
         }
       }
     },
@@ -288,12 +336,19 @@
           "password": "admin"
         }
       },
-      "User": {
+      "UserWrite": {
         "value": {
           "email": "example@express-brains.local",
           "nickname": "John Doe",
           "password": "password",
           "passwordConfirmation": "password"
+        }
+      },
+      "UserRead": {
+        "value": {
+          "uuid": "a1b651df-c53e-48c9-97f1-ed92c0fabb25",
+          "email": "example@express-brains.local",
+          "nickname": "John Doe"
         }
       },
       "Team": {

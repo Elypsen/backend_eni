@@ -11,13 +11,32 @@ router.get('/api/users', checkTokenMiddleware, async (req, res) => {
   // #swagger.tags = ['Users']
   // #swagger.description = 'Endpoint to get all users. Only admin can access this endpoint.'
   // #swagger.summary = 'Get all users'
-  // #swagger.responses[200] = { description: 'Success' }
+  // #swagger.responses[200] = { schema: { type: array, items: { $ref: "#/definitions/UserRead" } } }
   /* #swagger.security = [{
     "bearerAuth": []
   }]*/
   let userRepository = await mongoose().repositories('user')
   let users = await userRepository.findAll()
   res.json(users)
+})
+
+router.get('/api/users/:uuid', async (req, res) => {
+  // #swagger.tags = ['Users']
+  // #swagger.description = 'Endpoint to get a user by uuid.'
+  // #swagger.summary = 'Get a user by uuid'
+  // #swagger.parameters['uuid'] = { description: 'User uuid', required: true }
+  // #swagger.responses[200] = { schema: { $ref: "#/definitions/UserRead" } }
+  /* #swagger.security = [{
+    "bearerAuth": []
+  }]*/
+  let userRepository = await mongoose().repositories('user')
+  let user = await userRepository.findByUuid(req.params.uuid)
+  res.json({
+    uuid: user.uuid,
+    email: user.email,
+    nickname: user.nickname,
+    role: user.role,
+  })
 })
 
 router.post(
@@ -27,7 +46,7 @@ router.post(
       // #swagger.tags = ['Users']
       // #swagger.description = 'Endpoint to create a new user.'
       // #swagger.summary = 'Create a new user'
-      // #swagger.parameters['user'] = { in: 'body', description: 'User object', required: true, type: 'object', schema: { $ref: "#/definitions/User" } }
+      // #swagger.parameters['user'] = { in: 'body', description: 'User object', required: true, type: 'object', schema: { $ref: "#/definitions/UserWrite" } }
       let userRepository = await mongoose().repositories('user')
       const user = await userRepository.findByEmail(value)
       if (user) {
