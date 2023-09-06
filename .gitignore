@@ -2,5 +2,6 @@ node_modules
 .idea
 .DS_Store
 .env
+.env.prod
 cypress/screenshots
 cypress/videos

@@ -3,7 +3,7 @@
   "info": {
     "title": "API Express Brains",
     "description": "Public API for Express Brains Game",
-    "version": "1.0.0"
+    "version": "0.1.8"
   },
   "host": "localhost:3000",
   "basePath": "/",

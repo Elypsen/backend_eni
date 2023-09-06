@@ -1,9 +1,11 @@
 version: "3.8"
 services:
   app:
-    image: ${CONTAINER_REGISTRY}/app
+    image: ${CONTAINER_REGISTRY}/app:${VERSION}
     build:
       context: ./
-      target: app_node
+      target: app_node_prod
       cache_from:
         - ${CONTAINER_REGISTRY}/app:latest
+      args:
+        - VERSION=${VERSION}
