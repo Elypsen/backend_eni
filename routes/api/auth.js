@@ -20,6 +20,7 @@ router.post('/api/authentication_token', async function (req, res, next) {
           id: user.id,
           email: user.email,
           nickname: user.nickname,
+          role: user.role,
         },
         SECRET,
         { expiresIn: '3 hours' },
