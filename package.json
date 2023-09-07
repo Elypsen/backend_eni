@@ -6,7 +6,8 @@
     "start": "nodemon ./bin/www --ignore \"*.json\"",
     "prettier": "prettier --write ./**/*.js",
     "test": "npx cypress run",
-    "cypress:open": "npx cypress open"
+    "cypress:open": "npx cypress open",
+    "flush":"node flush_mongoose.js"
   },
   "dependencies": {
     "argon2": "^0.30.3",

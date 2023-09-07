@@ -21,15 +21,16 @@ router.get('/api/teams', async (req, res) => {
     team_response = {
       uuid: team.uuid,
       name: team.name,
+      members: team.members,
     }
     let users = []
-    for (const member of team.members) {
-      users.push('/api/users/' + member.uuid)
-    }
-    team_response.members = users
-    response.push(team_response)
+  //   for (const member of team.members) {
+  //     users.push('/api/users/' + member.uuid)
+  //   }
+  //   team_response.members = users
+       response.push(team_response)
   }
-
+  console.log(teams);
   return res.json(response)
 })
 
